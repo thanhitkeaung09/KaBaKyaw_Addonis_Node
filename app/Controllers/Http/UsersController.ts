@@ -3,6 +3,11 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 
 export default class UsersController {
+  /**
+   * User Login
+   * @param param request , response , auth
+   * @returns token
+   */
   public async login({ request, response, auth }: HttpContextContract) {
     const newPostSchema = schema.create({
       name: schema.string(),
@@ -16,18 +21,27 @@ export default class UsersController {
 
     const payload = await request.validate({ schema: newPostSchema })
     try {
-      const user = new User()
-      user.name = payload.name
-      user.email = payload.email
-      user.phone = payload.phone
-      user.socialId = payload.social_id
-      user.type = payload.type
-      user.image = payload.image
-      user.deviceToken = payload.device_token
-      await user.save()
-      const token = await auth.use('api').generate(user)
+      const userExists = await User.query().where('email', payload.email).first()
+      if (!userExists) {
+        const user = await new User()
+        user.name = payload.name
+        user.email = payload.email
+        user.phone = payload.phone
+        user.socialId = payload.social_id
+        user.type = payload.type
+        user.image = payload.image
+        user.deviceToken = payload.device_token
+        const data = await user.save()
+        const token = await auth.use('api').generate(data)
+        return response.json({
+          data: token.token,
+          message: true,
+          status: 200,
+        })
+      }
+      const token = await auth.use('api').generate(userExists)
       return response.json({
-        data: token.tokenHash,
+        data: token.token,
         message: true,
         status: 200,
       })
@@ -38,5 +52,17 @@ export default class UsersController {
         status: 404,
       })
     }
+  }
+
+  /**
+   * User Logout
+   */
+  public async logout({ auth, response }: HttpContextContract) {
+    await auth.use('api').revoke()
+    return response.json({
+      data: 'Logout Successfully',
+      message: true,
+      status: 200,
+    })
   }
 }
