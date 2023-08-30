@@ -1,4 +1,19 @@
-<h1> Welcome {{ user.code }} </h1>
-<p>
-  Confirm with the code
-</p>
+<body>
+  <button id="Btn">Send from client</button>
+  <!-- Rest of markup -->
+
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+    const Btn = document.getElementById("Btn")
+      const socket = io()
+      console.log(socket)
+      socket.on('new:user', (data) => {
+        console.log(data)
+      })
+      Btn.addEventListener("click",function(){
+        socket.emit('myevent', { my: 'than htike aung' })
+        console.log("Emitted an myevent event")
+      })
+    </script>
+</body>
+</html>

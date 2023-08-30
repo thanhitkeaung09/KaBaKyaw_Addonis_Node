@@ -20,9 +20,20 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+import Ws from 'App/Services/Ws'
 import './routes/v1/user/mail'
 import './routes/v1/user/otp'
 import './routes/v1/user/user'
-Route.get('/', async () => {
-  return { hello: 'world' }
+
+Route.get('/socket', async function ({ view }) {
+  return view.render('emails/welcome')
+})
+
+Route.get('/myevent', async function ({ view }) {
+  return view.render('secondeventlisten/listen')
+})
+
+Route.post('/socket', async function () {
+  Ws.io.emit('new:user', { username: 'virk' })
+  return 'Emitted an event'
 })
