@@ -5,7 +5,7 @@ Route.group(() => {
     .as('otp.confirm')
     .prefix('v1')
     .namespace('App/Controllers/Http')
-    .middleware(['check.app.key', 'auth:api'])
+    .middleware(['check.app.key'])
   /**
    * OTP Resend
    */
@@ -13,5 +13,5 @@ Route.group(() => {
     .as('otp.resend')
     .prefix('v1')
     .namespace('App/Controllers/Http')
-    .middleware(['check.app.key', 'auth'])
+    .middleware(['check.app.key'])
 })

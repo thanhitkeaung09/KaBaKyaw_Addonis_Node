@@ -9,7 +9,7 @@ Route.group(() => {
   /**
    * User Logout
    */
-  Route.get('/auth/logout', 'UsersController.logout').as('user.logout').middleware('auth:api')
+  Route.delete('/auth/logout', 'UsersController.logout').as('user.logout').middleware('auth:api')
 })
   .namespace('App/Controllers/Http')
   .prefix('v1')

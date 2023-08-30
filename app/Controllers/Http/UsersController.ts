@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
-import User from 'App/Models/User'
+import ApiSuccessResponse from 'App/Responses/ApiSuccessResponse'
+import SocialService from 'App/Services/SocialService'
 
 export default class UsersController {
   /**
@@ -20,38 +21,7 @@ export default class UsersController {
     })
 
     const payload = await request.validate({ schema: newPostSchema })
-    try {
-      const userExists = await User.query().where('email', payload.email).first()
-      if (!userExists) {
-        const user = await new User()
-        user.name = payload.name
-        user.email = payload.email
-        user.phone = payload.phone
-        user.socialId = payload.social_id
-        user.type = payload.type
-        user.image = payload.image
-        user.deviceToken = payload.device_token
-        const data = await user.save()
-        const token = await auth.use('api').generate(data)
-        return response.json({
-          data: token.token,
-          message: true,
-          status: 200,
-        })
-      }
-      const token = await auth.use('api').generate(userExists)
-      return response.json({
-        data: token.token,
-        message: true,
-        status: 200,
-      })
-    } catch (error) {
-      return response.unauthorized({
-        data: error,
-        message: false,
-        status: 404,
-      })
-    }
+    return new SocialService().login(response, auth, payload)
   }
 
   /**
@@ -59,10 +29,6 @@ export default class UsersController {
    */
   public async logout({ auth, response }: HttpContextContract) {
     await auth.use('api').revoke()
-    return response.json({
-      data: 'Logout Successfully',
-      message: true,
-      status: 200,
-    })
+    return new ApiSuccessResponse().toResponse(response, 'Logout Successfully')
   }
 }
