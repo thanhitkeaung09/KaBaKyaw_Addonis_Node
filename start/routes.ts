@@ -21,6 +21,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 import Ws from 'App/Services/Ws'
+import './routes/v1/image/image'
+import './routes/v1/post/post'
 import './routes/v1/user/mail'
 import './routes/v1/user/otp'
 import './routes/v1/user/user'

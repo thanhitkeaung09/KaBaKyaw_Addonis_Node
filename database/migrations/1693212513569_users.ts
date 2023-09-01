@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.string('social_id').nullable()
       table.string('type')
       table.text('image').nullable()
+      table.string('role')
       table.string('device_token')
       table.string('password', 180).nullable()
 

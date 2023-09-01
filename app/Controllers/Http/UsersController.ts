@@ -16,6 +16,7 @@ export default class UsersController {
       phone: schema.string(),
       social_id: schema.string(),
       type: schema.string(),
+      role: schema.string(),
       image: schema.string(),
       device_token: schema.string(),
     })

@@ -101,6 +101,7 @@ export default driveConfig({
       region: Env.get('S3_REGION'),
       bucket: Env.get('S3_BUCKET'),
       endpoint: Env.get('S3_ENDPOINT'),
+      cdnUrl: 'https://2-howtodo-file-storage.sgp1.digitaloceanspaces.com',
 
       // For minio to work
       forcePathStyle: true,

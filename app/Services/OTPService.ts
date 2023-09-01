@@ -27,6 +27,7 @@ export default class OTPService {
             name: request.body().name,
             email: request.body().email,
             password: request.body().password,
+            role: request.body().role,
             image: path,
             type: 'gmail',
           })

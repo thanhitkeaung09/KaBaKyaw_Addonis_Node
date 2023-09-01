@@ -1,21 +1,25 @@
 <body>
   {{--  <button id="Btn">Send from client</button>  --}}
-  <h1>second event</h1>
+  <input id="listenText" >
+  <h1>second event Client</h1>
+  <button id="Btn" >Send Message</button>
   <!-- Rest of markup -->
 
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
-    // const Btn = document.getElementById("Btn")
+    const Btn = document.getElementById("Btn")
+    const Text = document.getElementById("listenText")
 
     const socket = io()
       console.log(socket)
       socket.on('myevent', (data) => {
         console.log('test',data)
       })
-      // Btn.addEventListener("click",function(){
-      //   socket.emit('myevent', { my: 'than htike aung' })
-      //   console.log("Emitted an myevent event")
-      // })
+      Btn.addEventListener("click",function(){
+        console.log(Text.value)
+        socket.emit('secondEvent', { my: Text.value })
+        console.log("Emitted an myevent event")
+      })
     </script>
 </body>
 </html>

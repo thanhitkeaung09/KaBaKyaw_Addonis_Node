@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
+import ApiErrorResponse from 'App/Responses/ApiErrorResponse'
 import ApiSuccessResponse from 'App/Responses/ApiSuccessResponse'
 import MailService from 'App/Services/MailService'
 
@@ -23,7 +24,7 @@ export default class MailController {
       const token = await auth.use('api').attempt(email, password)
       return new ApiSuccessResponse().toResponse(response, token.token)
     } catch (error) {
-      return new ApiSuccessResponse().toResponse(response, error.responseText)
+      return new ApiErrorResponse().toResponse(response, error.responseText)
     }
   }
 

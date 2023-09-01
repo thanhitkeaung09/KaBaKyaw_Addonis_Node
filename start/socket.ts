@@ -14,4 +14,9 @@ Ws.io.on('connection', (socket) => {
     // const status = socket.emit('send:message', data)
     // console.log(status)
   })
+
+  socket.on('secondEvent', (data) => {
+    console.log(data)
+    socket.broadcast.emit('secondEvent', data)
+  })
 })

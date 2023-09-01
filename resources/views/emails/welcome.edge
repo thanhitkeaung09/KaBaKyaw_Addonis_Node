@@ -1,17 +1,24 @@
-<body>
+<input id="text" value="">
   <button id="Btn">Send from client</button>
   <!-- Rest of markup -->
 
     <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     <script>
     const Btn = document.getElementById("Btn")
+    const text = document.getElementById("text")
       const socket = io()
       console.log(socket)
       socket.on('new:user', (data) => {
         console.log(data)
       })
+
+      socket.on('secondEvent', (data) => {
+        console.log(data)
+      })
+
       Btn.addEventListener("click",function(){
-        socket.emit('myevent', { my: 'than htike aung' })
+        console.log(text.value)
+        socket.emit('myevent', { my: text.value })
         console.log("Emitted an myevent event")
       })
     </script>

@@ -13,6 +13,7 @@ export default class SocialService {
         user.phone = payload.phone
         user.socialId = payload.social_id
         user.type = payload.type
+        user.role = payload.role
         user.image = payload.image
         user.deviceToken = payload.device_token
         const data = await user.save()
