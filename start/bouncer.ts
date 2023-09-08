@@ -29,9 +29,9 @@ import Bouncer from '@ioc:Adonis/Addons/Bouncer'
 | NOTE: Always export the "actions" const from this file
 |****************************************************************
 */
-export const { actions } = Bouncer.define('admin', (user: User) => {
-  return 'admin' == user.role
-}).define('user', (user: User) => {
+export const { actions } = Bouncer.define('admin', (user) => {
+  return 'admin' === user.role
+}).define('user', (user) => {
   return 'user' === user.role
 })
 

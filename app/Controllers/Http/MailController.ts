@@ -29,7 +29,7 @@ export default class MailController {
   }
 
   public async generate_otp() {
-    const otpLength = 6
+    // const otpLength = 6
     // Generate a random 6-digit number
     const otp = Math.floor(100000 + Math.random() * 900000)
     return otp.toString()

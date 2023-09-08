@@ -2,6 +2,7 @@ import Otp from 'App/Models/Otp'
 import User from 'App/Models/User'
 import ApiErrorResponse from 'App/Responses/ApiErrorResponse'
 import ApiSuccessResponse from 'App/Responses/ApiSuccessResponse'
+import { DateTime } from 'luxon'
 import { v4 as uuidv4 } from 'uuid'
 
 export default class OTPService {
@@ -13,8 +14,8 @@ export default class OTPService {
     const code = request.body().code
     var confirm = await Otp.query().where('code', code).first()
     var oldUser = await User.query().where('email', request.body().email).first()
-    const email = request.body().email
-    if (new Date() > confirm?.expiredAt) {
+    // const email = request.body().email
+    if (DateTime.now() > confirm?.expiredAt!) {
       // return 'code is expired'
       return new ApiSuccessResponse().toResponse(response, 'Code is Expired')
     } else {

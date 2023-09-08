@@ -20,6 +20,9 @@
         socket.emit('secondEvent', { my: Text.value })
         console.log("Emitted an myevent event")
       })
+       socket.on('secondEvent', (data) => {
+        console.log('test',data)
+      })
     </script>
 </body>
 </html>

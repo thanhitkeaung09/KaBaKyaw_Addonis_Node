@@ -6,21 +6,21 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default class PostsController {
   public async create({ request, response, bouncer, auth }: HttpContextContract) {
-    const user = auth.user
+    // const user = auth.user
     if (await bouncer.allows('admin')) {
       const image = request.file('image')
       const name = `${uuidv4()}.${image?.extname}`
       const path = `GaBaKyaw/a/`
-      const image_path = `${path}${name}`
+      const imagePath = `${path}${name}`
       await image?.moveToDisk(path, { name: name }, 's3')
       const post = new Post()
       await post
         .fill({
           title: request.input('title'),
-          image: image_path,
+          image: imagePath,
           category: request.input('category'),
           description: request.input('description'),
-          userId: auth.user.id,
+          userId: auth.user!.id.toString(),
         })
         .save()
       return new ApiSuccessResponse().toResponse(response, 'Post is successfully uploaded')

@@ -12,7 +12,7 @@ export default class ApplicationCheckKey extends BaseModel {
   public appSecret: string
 
   @column()
-  public obsolete: string
+  public obsolete: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
