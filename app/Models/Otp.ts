@@ -1,18 +1,18 @@
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon'
 
-export default class ApplicationCheckKey extends BaseModel {
+export default class Otp extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public appId: string
+  public code: string
 
   @column()
-  public appSecret: string
+  public email: string
 
-  @column()
-  public obsolete: boolean
+  @column.dateTime()
+  public expiredAt: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

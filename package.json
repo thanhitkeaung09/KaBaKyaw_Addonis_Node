@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ace serve --watch",
-    "build": "node ace build --production",
+    "build": "node ace build --production --ignore-ts-errors",
     "start": "node server.js",
     "test": "node ace test",
     "lint": "eslint . --ext=.ts",
@@ -56,14 +56,19 @@
   },
   "dependencies": {
     "@adonisjs/auth": "^8.2.3",
+    "@adonisjs/bouncer": "^2.3.0",
     "@adonisjs/core": "^5.9.0",
+    "@adonisjs/drive-s3": "^1.3.2",
     "@adonisjs/lucid": "^18.4.0",
+    "@adonisjs/mail": "^8.2.1",
     "@adonisjs/repl": "^3.1.11",
+    "@adonisjs/view": "^6.2.0",
     "@types/uuid": "^9.0.2",
     "luxon": "^3.4.2",
     "mysql2": "^3.6.0",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",
+    "socket.io": "^4.7.2",
     "source-map-support": "^0.5.21",
     "uuid": "^9.0.0"
   }

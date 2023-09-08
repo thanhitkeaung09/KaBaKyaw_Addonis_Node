@@ -9,11 +9,12 @@ export default class extends BaseSchema {
       table.string('name')
       table.string('email', 255).nullable().unique()
       table.string('phone').nullable()
-      table.string('socialid').nullable()
+      table.string('social_id').nullable()
       table.string('type')
-      table.string('image').nullable()
+      table.text('image').nullable()
+      table.string('role')
+      table.string('device_token')
       table.string('password', 180).nullable()
-      table.string('remember_me_token').nullable()
 
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
